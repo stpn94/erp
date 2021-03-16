@@ -167,6 +167,7 @@ public abstract class AbstractManagerUI extends JFrame implements ActionListener
 	protected abstract void actionPerformedBtnAdd(ActionEvent e);// 추상메서드로 빼기
 	
 	protected void actionPerformedBtnClear(ActionEvent e) {
+		
 		pContent.clearTf();
 		if(btnAdd.getText().contentEquals("수정")) {
 			btnAdd.setText("추가");
