@@ -3,25 +3,33 @@ package erp.service;
 import java.util.List;
 
 import erp.dao.DepartmentDao;
+import erp.dao.EmployeeDao;
 import erp.daoImpl.DepartmentDaoImpl;
+import erp.daoImpl.EmployeeDaoImpl;
 import erp.dto.Department;
+import erp.dto.Employee;
 
 public class DepartmentService {
 	private DepartmentDao dao = DepartmentDaoImpl.getInstance();
-
-	public List<Department> showDeptList() {
+	private EmployeeDao empDao = EmployeeDaoImpl.getInstance();
+	
+	public List<Department> showDeptList(){
 		return dao.selectDepartmentByAll();
 	}
-
-	public void addDepartment(Department department) {
-		dao.insertDepartment(department);
+	
+	public void addDepartment(Department dept) {
+		dao.insertDepartment(dept);
 	}
-
-	public void removeDepartment(Department department) {
-		dao.deleteDepartment(department.getDeptNo());
+	
+	public void removeDepartment(Department dept) {
+		dao.deleteDepartment(dept.getDeptNo());
 	}
-
-	public void modifyDepartment(Department department) {
-		dao.updateDepartment(department);
+	
+	public void modifyDepartment(Department dept) {
+		dao.updateDepartment(dept);
+	}
+	
+	public List<Employee> showEmployeeGroupByDepartment(Department dept){
+		return empDao.selectEmployeeByDept(dept);
 	}
 }

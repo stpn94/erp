@@ -11,112 +11,102 @@ import erp.dao.DepartmentDao;
 import erp.database.JdbcConn;
 import erp.dto.Department;
 
-//-------------------------------------------------------------------------
 public class DepartmentDaoImpl implements DepartmentDao {
 	private static final DepartmentDaoImpl instance = new DepartmentDaoImpl();
-
+	
 	public static DepartmentDaoImpl getInstance() {
 		return instance;
 	}
 
 	private DepartmentDaoImpl() {
-
+		// TODO Auto-generated constructor stub
 	}
 
-//-------------------------------------------------------------------------
 	@Override
-	public List<Department> selectDepartmentByAll() { // 모든것을 검색할때 쓰는 메서드
-		String sql = "select deptno,deptname,floor from department"; // statement sql작성
-		try (Connection con = JdbcConn.getConnection(); // close를 자동으로 호출해주는 방법
+	public List<Department> selectDepartmentByAll() {
+		String sql = "select deptNo, deptName, floor from department";
+		try(Connection con = JdbcConn.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
+				ResultSet rs = pstmt.executeQuery()){
 			if (rs.next()) {
 				List<Department> list = new ArrayList<>();
 				do {
 					list.add(getDepartment(rs));
-
-				} while (rs.next());
+				}while(rs.next());
+//				System.out.println(list.size());
 				return list;
 			}
-		} catch (Exception e) {
-
-			// TODO: handle exception
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return null;
-
 	}
 
 	private Department getDepartment(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
 		int deptNo = rs.getInt("deptno");
-		String deptName = rs.getString("deptname");
+		String deptName = rs.getString("deptName");
 		int floor = rs.getInt("floor");
 		return new Department(deptNo, deptName, floor);
 	}
 
-//-------------------------------------------------------------------------
 	@Override
 	public Department selectDepartmentByNo(Department department) {
-		String sql = "select deptno,deptname,floor from department where deptno=?";
-		try (Connection con = JdbcConn.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+		String sql = "select deptNo, deptName, floor from department where deptNo = ?";
+		try(Connection con = JdbcConn.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, department.getDeptNo());
-			try (ResultSet rs = pstmt.executeQuery()) {
+			try(ResultSet rs = pstmt.executeQuery()){
 				if (rs.next()) {
 					return getDepartment(rs);
 				}
-			} catch (SQLException e) {
-				// TODO: handle exception
 			}
 		} catch (SQLException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-
 		return null;
-
 	}
 
-//-------------------------------------------------------------------------
 	@Override
 	public int insertDepartment(Department department) {
 		String sql = "insert into department values(?, ?, ?)";
-		try (Connection con = JdbcConn.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+		try(Connection con = JdbcConn.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, department.getDeptNo());
 			pstmt.setString(2, department.getDeptName());
 			pstmt.setInt(3, department.getFloor());
 			return pstmt.executeUpdate();
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return 0;
 	}
-
-//-------------------------------------------------------------------------
-
-	@Override
-	public int deleteDepartment(int DepartmentNo) {
-		String sql = "delete from department where deptno = ?";
-		try (Connection con = JdbcConn.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setInt(1, DepartmentNo);
-			return pstmt.executeUpdate();
-		} catch (Exception e) {
-		}
-		return 0;
-	}
-//-------------------------------------------------------------------------
 
 	@Override
 	public int updateDepartment(Department department) {
-		String sql = "update department set deptname = ? , floor = ? where deptno = ?";
-		try (Connection con = JdbcConn.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+		String sql = "update department set deptName = ?, floor = ? where deptNo = ?";
+		try(Connection con = JdbcConn.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, department.getDeptName());
 			pstmt.setInt(2, department.getFloor());
 			pstmt.setInt(3, department.getDeptNo());
 			return pstmt.executeUpdate();
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return 0;
 	}
 
-//-------------------------------------------------------------------------
+	@Override
+	public int deleteDepartment(int deptNo) {
+		String sql = "delete from department where deptno = ?";
+		try(Connection con = JdbcConn.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, deptNo);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
-//-------------------------------------------------------------------------
 }

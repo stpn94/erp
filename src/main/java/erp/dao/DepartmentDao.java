@@ -20,5 +20,5 @@ public interface DepartmentDao {
 
 	int updateDepartment(Department department);
 
-	int deleteDepartment(int DepartmentNo);
+	int deleteDepartment(int deptNo);
 }

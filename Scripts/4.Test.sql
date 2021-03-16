@@ -27,3 +27,9 @@ select empname, empno from employee e join title t on e.title = t.tno where tno 
 select empname, empno from employee e join department d on e.dept = d.deptno where deptno = 2;
 
 select * from employee where empno = 1003;
+
+-- pass 길이 확인
+-- hash 단방향 함수(Hash:MDS)
+select password('asdfasdfasdfasdfasdfasdf'), length(password('asdfasdfasdfasdfasdfasdf'))from dual;
+
+select password('1234');

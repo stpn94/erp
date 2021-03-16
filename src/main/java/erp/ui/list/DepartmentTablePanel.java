@@ -5,11 +5,13 @@ import javax.swing.SwingConstants;
 import erp.dto.Department;
 import erp.service.DepartmentService;
 
+@SuppressWarnings("serial")
 public class DepartmentTablePanel extends AbstractCustomTablePanel<Department> {
-
 	private DepartmentService service;
 
-	public DepartmentTablePanel() {
+	@Override
+	public void initList() {
+		list = service.showDeptList();
 	}
 
 	@Override
@@ -30,13 +32,7 @@ public class DepartmentTablePanel extends AbstractCustomTablePanel<Department> {
 		return new String[] { "부서번호", "부서명", "위치" };
 	}
 
-	@Override
-	public void initList() {
-		list = service.showDeptList();
-	}
-
 	public void setService(DepartmentService service) {
 		this.service = service;
 	}
-
 }

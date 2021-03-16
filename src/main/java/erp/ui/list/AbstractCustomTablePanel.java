@@ -17,6 +17,7 @@ import javax.swing.table.TableRowSorter;
 
 import erp.ui.exception.NotSelectedException;
 
+@SuppressWarnings("serial")
 public abstract class AbstractCustomTablePanel<T> extends JPanel {
 	protected JTable table;
 	protected List<T> list;

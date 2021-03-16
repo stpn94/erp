@@ -23,14 +23,14 @@ import com.toedter.calendar.JDateChooser;
 import erp.dto.Employee;
 
 @SuppressWarnings("serial")
-public class EmpDetail extends JPanel {
+public class EmpDetailPanel2 extends JPanel {
 	private JTextField tfNo;
 	private JTextField tfName;
 	private JDateChooser dateHire;
 	private JPasswordField pfPass1;
 	private JTextField pfPass2;
 
-	public EmpDetail() {
+	public EmpDetailPanel2() {
 
 		initialize();
 	}

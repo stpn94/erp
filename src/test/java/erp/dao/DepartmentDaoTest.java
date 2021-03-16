@@ -12,7 +12,6 @@ import erp.daoImpl.DepartmentDaoImpl;
 import erp.dto.Department;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-
 public class DepartmentDaoTest {
 	private static DepartmentDao dao = DepartmentDaoImpl.getInstance();
 
@@ -20,54 +19,47 @@ public class DepartmentDaoTest {
 	public void tearDown() throws Exception {
 		System.out.println();
 	}
-	
+
 	@Test
 	public void test04SelectDepartmentByAll() {
-		System.out.printf("%s()%n", "testSelectDepartmentByAll");
-		List<Department> DepartmentList = dao.selectDepartmentByAll();
-		Assert.assertNotNull(DepartmentList);
-
-		DepartmentList.stream().forEach(System.out::println);
-//		for(Department d : DepartmentList) {
-//			System.out.println(d);
-//		}
-		
+		System.out.printf("%s()%n", "test04SelectDepartmentByAll");
+		List<Department> list = dao.selectDepartmentByAll();
+		Assert.assertNotNull(list);
+		list.stream().forEach(System.out::println);
 	}
-	
+
 	@Test
 	public void test05SelectDepartmentByNo() {
-		Department department = new Department(3);
-		Department searchDepartment = dao.selectDepartmentByNo(department);
-		Assert.assertNotNull(searchDepartment);
-		System.out.println(searchDepartment);
-	}
-	
-	@Test
-	public void test01InsertDepartment() {
-		System.out.printf("%s()%n", "testInsertDepartment");
-		Department newDepartment = new Department(6, "청소", 1);
-		int res = dao.insertDepartment(newDepartment);
-		Assert.assertEquals(1, res);
-		System.out.println(dao.selectDepartmentByNo(newDepartment));
+		System.out.printf("%s()%n", "test05SelectDepartmentByNo");
+		Department dept = dao.selectDepartmentByNo(new Department(3));
+		Assert.assertNotNull(dept);
+		System.out.println(dept);
 	}
 
 	@Test
-	public void test03DeletedateDepartment() {
-		System.out.printf("%s()%n", "testDeleteDepartment");
-		int res = dao.deleteDepartment(6);
+	public void test01InsertDepartment() {
+		System.out.printf("%s()%n", "test01InsertDepartment");
+		Department newDept = new Department(5, "테스트", 20);
+		int res = dao.insertDepartment(newDept);
 		Assert.assertEquals(1, res);
-		dao.selectDepartmentByAll().stream().forEach(System.out::println);
+		System.out.println(dao.selectDepartmentByNo(newDept));
 	}
 
 	@Test
 	public void test02UpdateDepartment() {
-		System.out.printf("%s()%n", "testUpdateDepartment");
-		Department newDepartment = new Department(6, "계약직");
-		int res = dao.updateDepartment(newDepartment);
+		System.out.printf("%s()%n", "test02UpdateDepartment");
+		Department newDept = new Department(5, "테스트2", 30);
+		int res = dao.updateDepartment(newDept);
 		Assert.assertEquals(1, res);
-		System.out.println(dao.selectDepartmentByNo(newDepartment));
+		System.out.println(dao.selectDepartmentByNo(newDept));
 	}
 
-	
-	
+	@Test
+	public void test03DeleteDepartment() {
+		System.out.printf("%s()%n", "test03DeleteDepartment");
+		int res = dao.deleteDepartment(5);
+		Assert.assertEquals(1, res);
+		dao.selectDepartmentByAll().stream().forEach(System.out::println);
+	}
+
 }

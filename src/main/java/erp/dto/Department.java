@@ -1,32 +1,24 @@
 package erp.dto;
 
-import java.util.List;
-
 public class Department {
 	private int deptNo;
 	private String deptName;
 	private int floor;
-	
-	private List<Employee> emplist;
-	
-	private Department() {
 
+//	private List<Employee> emplist;
+
+	public Department() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Department(int deptNo) {
+		this.deptNo = deptNo;
 	}
 
 	public Department(int deptNo, String deptName, int floor) {
 		this.deptNo = deptNo;
 		this.deptName = deptName;
 		this.floor = floor;
-	}
-
-
-	public Department(int deptNo) {
-		this.deptNo = deptNo;
-	}
-
-	public Department(int deptNo, String deptName) {
-		this.deptNo = deptNo;
-		this.deptName = deptName;
 	}
 
 	public int getDeptNo() {
@@ -53,7 +45,6 @@ public class Department {
 		this.floor = floor;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -80,6 +71,5 @@ public class Department {
 	public String toString() {
 		return String.format("%s(%d)", deptName, deptNo);
 	}
-	
-	
+
 }

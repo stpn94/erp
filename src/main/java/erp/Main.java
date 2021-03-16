@@ -10,10 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import erp.ui.DepartmentManager;
-import erp.ui.EmployeeManager;
-import erp.ui.TitleManager;
+import erp.ui.DepartmentManagerUI;
+import erp.ui.EmployeeManagerUI;
+import erp.ui.TitleManagerUI;
 
+@SuppressWarnings("serial")
 public class Main extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
@@ -39,27 +40,25 @@ public class Main extends JFrame implements ActionListener {
 	}
 
 	private void initialize() {
+		setTitle("Erp Management");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 107);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 4, 0, 0));
+		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
 
-		btnTitle = new JButton("직책");
+		btnTitle = new JButton("직책 관리");
 		btnTitle.addActionListener(this);
 		contentPane.add(btnTitle);
 
-		btnDepartment = new JButton("부서");
+		btnDepartment = new JButton("부서 관리");
 		btnDepartment.addActionListener(this);
 		contentPane.add(btnDepartment);
 
-		btnEmployee = new JButton("사원");
+		btnEmployee = new JButton("사원 관리");
 		btnEmployee.addActionListener(this);
 		contentPane.add(btnEmployee);
-
-		JButton btnEmp = new JButton("사원정보");
-		contentPane.add(btnEmp);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -75,15 +74,20 @@ public class Main extends JFrame implements ActionListener {
 	}
 
 	protected void actionPerformedBtnTitle(ActionEvent e) {
-		TitleManager frame = new TitleManager();
+		TitleManagerUI frame = new TitleManagerUI();
+		frame.setTitle("직책 관리");
 		frame.setVisible(true);
 	}
+	
 	protected void actionPerformedBtnDepartment(ActionEvent e) {
-		DepartmentManager frame = new DepartmentManager();
+		DepartmentManagerUI frame = new DepartmentManagerUI();
+		frame.setTitle("부서 관리");
 		frame.setVisible(true);
 	}
+	
 	protected void actionPerformedBtnEmployee(ActionEvent e) {
-		EmployeeManager frame = new EmployeeManager();
+		EmployeeManagerUI frame = new EmployeeManagerUI();
+		frame.setTitle("사원 관리");
 		frame.setVisible(true);
 	}
 }

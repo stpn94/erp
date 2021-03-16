@@ -13,11 +13,11 @@ import erp.dto.Employee;
 import erp.dto.Title;
 
 public class EmployeeService {
-	private EmployeeDao dao = EmployeeDaoImpl.getInstance();
 	private DepartmentDao deptDao = DepartmentDaoImpl.getInstance();
 	private TitleDao titleDao = TitleDaoImpl.getInstance();
-
-	public List<Department> showDeptList() {
+	private EmployeeDao employeeDao = EmployeeDaoImpl.getInstance();
+	
+	public List<Department> showDeptList(){
 		return deptDao.selectDepartmentByAll();
 	}
 	
@@ -26,23 +26,22 @@ public class EmployeeService {
 	}
 	
 	public List<Employee> showEmployeeByDept(Department dept){
-		return dao.selectEmployeeBydeptNo(dept);
+		return employeeDao.selectEmployeeByDept(dept);
 	}
 	
 	public List<Employee> showEmployees(){
-		return dao.selectEmployeeByAll();
+		return employeeDao.selectEmployeeByAll();
 	}
 	
-	public void insertEmployee(Employee employee){
-		dao.insertEmployee(employee);
+	public void removeEmployee(Employee employee) {
+		employeeDao.deleteEmployee(employee);
 	}
 	
-////////////////////////////////////////////////////////////////////////
-	public List<Employee> showEmpList(Title title) {
-		return dao.selectEmployeeByTitleNo(title);
+	public void modifyEmployee(Employee employee) {
+		employeeDao.updateEmployee(employee);
 	}
-
 	
-	
-
+	public void addEmployee(Employee employee) {
+		employeeDao.insertEmployee(employee);
+	}
 }

@@ -1,56 +1,46 @@
 package erp.dto;
 
 public class Title {
-	private int tno;
-	private String tname;
-	
+	private int tNo;
+	private String tName;
+
 	public Title() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	public Title(int no) {
-		this.tno = no;
+
+	public Title(int tNo) {
+		this.tNo = tNo;
 	}
 
-
-	public Title(int no, String name) {
-		this.tno = no;
-		this.tname = name;
+	public Title(int tNo, String tName) {
+		this.tNo = tNo;
+		this.tName = tName;
 	}
-
 
 	public int gettNo() {
-		return tno;
+		return tNo;
 	}
 
-
-	public void settNo(int no) {
-		this.tno = no;
+	public void settNo(int tNo) {
+		this.tNo = tNo;
 	}
-
 
 	public String gettName() {
-		return tname;
+		return tName;
 	}
 
-
-	public void settName(String name) {
-		this.tname = name;
+	public void settName(String tName) {
+		this.tName = tName;
 	}
 
-
-
-
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + tno;
+		result = prime * result + tNo;
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -61,17 +51,14 @@ public class Title {
 		if (getClass() != obj.getClass())
 			return false;
 		Title other = (Title) obj;
-		if (tno != other.tno)
+		if (tNo != other.tNo)
 			return false;
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
-		return String.format("Title [no=%s, name=%s]", tno, tname);
+		return String.format("%s(%d)", tName, tNo);
 	}
-	
-	
-	
+
 }

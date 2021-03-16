@@ -12,14 +12,13 @@ public interface EmployeeDao {
 
 	Employee selectEmployeeByNo(Employee employee);
 
-	int insertEmployee(Employee employee); // 객체
+	int insertEmployee(Employee employee);
 
 	int updateEmployee(Employee employee);
 
-	int deleteEmployee(int EmployeeNo); // 기본타입
+	int deleteEmployee(Employee employee);
 
-	List<Employee> selectEmployeeBydeptNo(Department department);
+	List<Employee> selectEmployeeByTitle(Title title);
 
-	List<Employee> selectEmployeeByTitleNo(Title title);
-
+	List<Employee> selectEmployeeByDept(Department dept);
 }

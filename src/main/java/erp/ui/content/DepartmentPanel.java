@@ -1,53 +1,27 @@
 package erp.ui.content;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import erp.dto.Department;
 import erp.ui.exception.InvalidCheckException;
 
-public class DeptPanel extends AbstractContentPanel<Department> {
+@SuppressWarnings("serial")
+public class DepartmentPanel extends AbstractContentPanel<Department>{
 	private JTextField tfDeptNo;
 	private JTextField tfDeptName;
 	private JTextField tfFloor;
 
-	public DeptPanel() {
+	public DepartmentPanel() {
 		initialize();
 	}
 	
-	public JTextField getTfDeptNo() {
-		return tfDeptNo;
-	}
-
-	public void setTfDeptNo(JTextField tfDeptNo) {
-		this.tfDeptNo = tfDeptNo;
-	}
-
-	public JTextField getTfDeptName() {
-		return tfDeptName;
-	}
-
-	public void setTfDeptName(JTextField tfDeptName) {
-		this.tfDeptName = tfDeptName;
-	}
-
-	public JTextField getTfFloor() {
-		return tfFloor;
-	}
-
-	public void setTfFloor(JTextField tfFloor) {
-		this.tfFloor = tfFloor;
-	}
-	
 	private void initialize() {
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uBD80\uC11C\uC815\uBCF4", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		setBorder(new TitledBorder(null, "부서 정보", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new GridLayout(0, 2, 10, 10));
 		
 		JLabel lblDeptNo = new JLabel("부서번호");
@@ -75,39 +49,48 @@ public class DeptPanel extends AbstractContentPanel<Department> {
 		add(tfFloor);
 	}
 	
-	
-	
-	@Override
 	public void clearTf() {
 		tfDeptNo.setText("");
 		tfDeptName.setText("");
 		tfFloor.setText("");
+		
+		if (!tfDeptNo.isEditable()) {
+			tfDeptNo.setEditable(true);
+		}
 	}
 
 	@Override
 	public void setItem(Department item) {
-//		tfDeptNo.setText(String.valueOf(department.getDeptNo()));
-		tfDeptNo.setText(item.getDeptNo()+"");
-		tfDeptName.setText(item.getDeptName()+"");
-		tfFloor.setText(item.getFloor()+"");
+		tfDeptNo.setText(String.valueOf(item.getDeptNo()));
+//		tfDeptNo.setText(department.getDeptNo() + "");
+		tfDeptName.setText(item.getDeptName());
+		tfFloor.setText(item.getFloor() + "");
 		
+		tfDeptNo.setEditable(false);		
 	}
 
 	@Override
 	public Department getItem() {
-		int deptNo =Integer.parseInt(tfDeptNo.getText().trim());
+		validCheck();
+		int deptNo = Integer.parseInt(tfDeptNo.getText().trim());
 		String deptName = tfDeptName.getText().trim();
-		int floor =Integer.parseInt(tfFloor.getText().trim());
-		
+		int floor = Integer.parseInt(tfFloor.getText().trim());
 		return new Department(deptNo, deptName, floor);
 	}
 
 	@Override
 	public void validCheck() {
-		if (tfDeptNo.getText().contentEquals("") || tfDeptName.getText().equals("") || tfFloor.getText().equals("")) {
+		if (tfDeptNo.getText().contentEquals("") 
+				|| tfDeptName.getText().equals("")
+				|| tfFloor.getText().equals("")) {
 			throw new InvalidCheckException();
-		}
-		
+		}		
 	}
-	
 }
+
+
+
+
+
+
+
