@@ -17,25 +17,35 @@ import javax.swing.border.EmptyBorder;
 import erp.dto.Employee;
 import erp.dto.Title;
 import erp.service.TitleService;
+import erp.ui.content.AbstractContentPanel;
 import erp.ui.content.TitlePanel;
 import erp.ui.exception.InvalidCheckException;
 import erp.ui.exception.NotSelectedException;
 import erp.ui.exception.SqlConstraintException;
+import erp.ui.list.AbstractCustomTablePanel;
 import erp.ui.list.TitleTablePanel;
 
 public class TitleManager extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnAdd;
-	private TitlePanel pContent;
-	private TitleTablePanel pList;
+	
+	private AbstractContentPanel<Title> pContent;
+	private AbstractCustomTablePanel<Title>  pList;
+	 
 	private TitleService service;
 	
+	
 	public TitleManager() {
-		service = new TitleService();
+		setService();//service 연결
 		initialize();
+		tableLoadData();//component load data
 	}
 	
+	private void setService() {
+		service = new TitleService();
+	}
+
 	private void initialize() {
 		setTitle("직책 관리");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,7 +55,7 @@ public class TitleManager extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
-		pContent = new TitlePanel();
+		pContent = createContentPanel();
 		contentPane.add(pContent);
 		
 		JPanel pBtns = new JPanel();
@@ -58,13 +68,25 @@ public class TitleManager extends JFrame implements ActionListener {
 		JButton btnClear = new JButton("취소");
 		pBtns.add(btnClear);
 		
-		pList = new TitleTablePanel();
-		pList.setService(service);
-		pList.loadData();
+		pList = createTablePanel();
+
 		contentPane.add(pList);
 		
 		JPopupMenu popupMenu = createPopupMenu();
 		pList.setPopupMenu(popupMenu);
+	}
+
+	public void tableLoadData() {
+		((TitleTablePanel) pList).setService(service);
+		pList.loadData();
+	}
+
+	public TitleTablePanel createTablePanel() {
+		return new TitleTablePanel();
+	}
+
+	private TitlePanel createContentPanel() {
+		return new TitlePanel();
 	}
 
 	private JPopupMenu createPopupMenu() {
