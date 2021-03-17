@@ -33,3 +33,21 @@ select * from employee where empno = 1003;
 select password('asdfasdfasdfasdfasdfasdf'), length(password('asdfasdfasdfasdfasdfasdf'))from dual;
 
 select password('1234');
+
+-- emp_detail insert
+INSERT INTO erp.emp_detail
+(empno, pic, gender, hiredate, password)
+VALUES(?, ?, ?, ?, ?);
+
+-- 확인
+SELECT * FROM emp_detail;
+
+select empno, pic, gender, hiredate, `password` from emp_detail where empno=1003;
+
+select empno, pic, gender, hiredate, `password` from emp_detail where empno=1003;
+
+delete from emp_detail where empno=1003;
+
+update emp_detail 
+set pic = ?,gender = ?,hiredate = ? 
+from empno=?;
