@@ -44,6 +44,8 @@ SELECT * FROM emp_detail;
 
 select empno, pic, gender, hiredate, `password` from emp_detail where empno=1003;
 
+select empno, pic, gender, hiredate, `password` from emp_detail where empno=1003;
+
 delete from emp_detail where empno=1003;
 
 update emp_detail 
