@@ -1,9 +1,7 @@
 package erp.ui;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import erp.dto.Employee;
@@ -11,7 +9,6 @@ import erp.dto.EmployeeDetail;
 import erp.service.EmployeeDetailService;
 import erp.service.EmployeeService;
 import erp.ui.content.AbstractContentPanel;
-import erp.ui.content.EmployeeDetailPanel;
 import erp.ui.content.EmployeePanel;
 import erp.ui.list.AbstractCustomTablePanel;
 import erp.ui.list.EmployeeTablePanel;
@@ -55,18 +52,28 @@ public class EmployeeManagerUI extends AbstractManagerUI<Employee> {
 //		System.out.println(emp);
 		EmployeeDetail empDetail = detailService.selectEmployeeDetailByEmpNo(emp);
 		//나중에 처리
+		employeeDetailUI frame;
 		if(empDetail == null) {
-			JOptionPane.showMessageDialog(null, "세부정보없음");
+			frame = new employeeDetailUI(true, detailService);
+		}else {
+			frame = new employeeDetailUI(false, detailService);
+			frame.setDetailItems(empDetail);
 		}
+		frame.setEmpNo(emp);
+		frame.setVisible(true);
 //		System.out.println(empDetail);
-		JFrame subFrame = new JFrame("사원 세부 정보");
-		subFrame.setBounds(this.getWidth(),this.getHeight(),450,500);
-		EmployeeDetailPanel subDetailPanel = new EmployeeDetailPanel();
-		subDetailPanel.setItem(empDetail);
 		
-		subFrame.add(subDetailPanel, BorderLayout.CENTER);
-		
-		subFrame.setVisible(true);
+		/*
+		 * JFrame subFrame = new JFrame("사원 세부 정보");
+		 * subFrame.setBounds(this.getWidth(),this.getHeight(),450,500);
+		 * EmployeeDetailPanel subDetailPanel = new EmployeeDetailPanel();
+		 * subDetailPanel.setItem(empDetail);
+		 * 
+		 * 
+		 * subFrame.add(subDetailPanel, BorderLayout.CENTER);
+		 * 
+		 * subFrame.setVisible(true);
+		 */
 //		throw new UnsupportedOperationException("제공되지 않음");
 	}
 
@@ -93,6 +100,7 @@ public class EmployeeManagerUI extends AbstractManagerUI<Employee> {
 		pContent.clearTf();
 		btnAdd.setText("추가");
 		JOptionPane.showMessageDialog(null, updateEmp.getEmpName() + "정보가 수정되었습니다.");
+		
 	}
 
 	@Override
@@ -102,6 +110,7 @@ public class EmployeeManagerUI extends AbstractManagerUI<Employee> {
 		pList.loadData();
 		pContent.clearTf();
 		JOptionPane.showMessageDialog(null, empl.getEmpName() + " 추가했습니다.");
+	
 	}
 
 }
